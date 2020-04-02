@@ -23,63 +23,52 @@ describe('grams routes', () => {
         });
       });
   });
-
-  // it('gets most popular gram', async() => {
-  //   const grams = await getGrams();
-  //   return getAgent()
-  //     .get('/api/v1/gramas')
-  //     .then(res => {
-  //       expect(res.body).toEqual(grams);
-  //     });
-  // });
   
-  // it('gets a gram by id', async() => {
-  //   const user = await getUser({ username: 'test@test.com' });
-  //   const gram = await getGram({ author: user._id });
-  //   const comments = await getComments({ gram: gram._id });
+  it('gets a meme by id', async() => {
+    const user = await getUser({ username: 'test@test.com' });
+    const meme = await getMeme({ author: user._id });
 
-  //   return getAgent()
-  //     .get(`/api/v1/grams/${gram._id}`)
-  //     .then(res => {
-  //       expect(res.body).toEqual({
-  //         ...gram,
-  //         author: user._id,
-  //         comments: expect.arrayContaining(comments)
-  //       });
-  //     });
-  // });
+    return getAgent()
+      .get(`/api/v1/memes/${meme._id}`)
+      .then(res => {
+        expect(res.body).toEqual({
+          ...meme,
+          author: user._id
+        });
+      });
+  });
 
-  // it('gets all grams', async() => {
-  //   const grams = await getGrams();
-  //   return getAgent()
-  //     .get('/api/v1/grams')
-  //     .then(res => {
-  //       expect(res.body).toEqual(grams);
-  //     });
-  // });
+  it('gets all memes', async() => {
+    const memes = await getMemes();
+    return getAgent()
+      .get('/api/v1/memes')
+      .then(res => {
+        expect(res.body).toEqual(memes);
+      });
+  });
 
-  // it('updates a gram by id', async() => {
-  //   const user = await getUser({ username: 'test@test.com' });
-  //   const gram = await getGram({ author: user._id });
-  //   return getAgent()
-  //     .patch(`/api/v1/grams/${gram._id}`)
-  //     .send({ caption: 'new better caption' })
-  //     .then(res => {
-  //       expect(res.body).toEqual({
-  //         ...gram,
-  //         caption: 'new better caption'
-  //       });
-  //     });
-  // });
+  it('updates a meme by id', async() => {
+    const user = await getUser({ username: 'test@test.com' });
+    const meme = await getMeme({ author: user._id });
+    return getAgent()
+      .patch(`/api/v1/memes/${meme._id}`)
+      .send({ top: 'new better meme' })
+      .then(res => {
+        expect(res.body).toEqual({
+          ...meme,
+          top: 'new better meme'
+        });
+      });
+  });
 
-  // it('deletes a gram', async() => {
-  //   const user = await getUser({ username: 'test@test.com' });
-  //   const gram = await getGram({ author: user._id });
+  it('deletes a meme', async() => {
+    const user = await getUser({ username: 'test@test.com' });
+    const meme = await getMeme({ author: user._id });
 
-  //   return getAgent()
-  //     .delete(`/api/v1/grams/${gram._id}`)
-  //     .then(res => {
-  //       expect(res.body).toEqual(gram);
-  //     });
-  // });
+    return getAgent()
+      .delete(`/api/v1/memes/${meme._id}`)
+      .then(res => {
+        expect(res.body).toEqual(meme);
+      });
+  });
 });
